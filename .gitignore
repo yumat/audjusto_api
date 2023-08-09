@@ -1,0 +1,15 @@
+.vscode/*
+.vscode
+!.vscode/extensions.json
+
+.env
+
+
+*__pycache__*
+dynamodb/dynamodb_data
+
+
+build_dir
+
+
+test.json
