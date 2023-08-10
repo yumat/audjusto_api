@@ -16,3 +16,9 @@ tablename:payhistory_table
 key:group_id(U)
 sort:date_time
 ```
+
+```
+tablename:possible_dates_table
+key:group_id(U)
+sort:date_id
+```

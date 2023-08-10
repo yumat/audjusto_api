@@ -8,3 +8,4 @@ ddb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000",
 group_table = ddb.Table("group_table")
 members_table = ddb.Table("members_table")
 pay_table = ddb.Table("payhistory_table")
+possible_dates_table = ddb.Table("possible_dates_table")
