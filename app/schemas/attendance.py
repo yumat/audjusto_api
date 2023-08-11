@@ -13,6 +13,7 @@ class ResultName(str, Enum):
 
 class AttendanceBase(BaseModel):
     name: Optional[str] = Field(None, example="太郎")
+    member_id: Optional[str] = Field(None, example="WtG5GaD9tPdAasoEFrGR85")
 
   
 class DateBase(BaseModel):
@@ -35,6 +36,8 @@ class AttendanceCreate(AttendanceBase):
             ]])
     pass
 
+class AttendanceDelete(BaseModel):
+    member_id: Optional[str] = Field(None, example="WtG5GaD9tPdAasoEFrGR85")
 
 class AttendanceCreateResponse(AttendanceCreate):
     pass

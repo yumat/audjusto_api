@@ -17,9 +17,14 @@ async def read_schedule(group_id: str):
         )
     # print(res)
     response = res['Items']
+    response.sort(key=date_key)
     return response
 
-# @router.get("/api/members/{group_id}", response_model=List[members_schema.Member])
+
+def date_key(item):
+    return item['date']
+
+
 @router.post("/api/schedule", response_model=schedule_schema.ScheduleCreateResponse)
 async def create_schedule(group_body: schedule_schema.ScheduleCreate):
     group = group_body.model_dump()
@@ -30,7 +35,15 @@ async def create_schedule(group_body: schedule_schema.ScheduleCreate):
     schedule = group.pop('schedule')
     group_table.put_item(Item=group)
 
-    for date in schedule:
+    unique_dates = set()
+    temp_schedule = []
+    for item in schedule:
+        date = item["date"]
+        if date not in unique_dates:
+            unique_dates.add(date)
+            temp_schedule.append(item)
+
+    for date in temp_schedule:
         u = uuid.uuid4()
         date_uuid = shortuuid.encode(u)        
         date['group_id'] = s_uuid
