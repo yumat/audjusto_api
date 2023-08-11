@@ -46,3 +46,10 @@ async def create_group(group_body: group_schema.GroupCreate):
         members_table.put_item(Item=member)
     response = {'group_id': s_uuid}
     return response
+
+
+@router.post("/api/groupname", response_model=group_schema.Group)
+async def modify_group(group_body: group_schema.Group):
+    group = group_body.model_dump()
+    group_table.put_item(Item=group)
+    return group
