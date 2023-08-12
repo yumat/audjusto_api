@@ -33,7 +33,7 @@ async def read_schedule(group_id: str, member_id:str):
         result = 'available' if any(member['member_id'] == member_id for member in possible_date['available']) \
             else 'maybe' if any(member['member_id'] == member_id for member in possible_date['maybe']) \
             else 'unavailable' if any(member['member_id'] == member_id for member in possible_date['unavailable']) \
-            else 'not_found'
+            else None
 
         temp_data = {
             "date": possible_date['date'],

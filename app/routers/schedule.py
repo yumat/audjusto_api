@@ -54,3 +54,21 @@ async def create_schedule(group_body: schedule_schema.ScheduleCreate):
         possible_dates_table.put_item(Item=date)
     response = {'group_id': s_uuid}
     return response
+
+
+@router.post("/api/add_schedule/{group_id}", response_model=List[schedule_schema.PossibleDatesBase])
+async def create_schedule(group_id: str, dates_body: List[schedule_schema.PossibleDatesBase]):
+    # dates = dates_body.model_dump()
+    dates =[]
+    for date_body in dates_body:
+        date = date_body.model_dump()
+        u = uuid.uuid4()
+        date_uuid = shortuuid.encode(u)
+        date['group_id'] = group_id
+        date['date_id'] = date_uuid
+        date['available'] = []
+        date['maybe'] = []
+        date['unavailable'] = []
+        dates.append(date)
+        possible_dates_table.put_item(Item=date)
+    return dates
