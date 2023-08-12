@@ -57,8 +57,10 @@ async def create_pay(attendance_body: attendance_schema.AttendanceCreate, group_
     else:
         modify_member_name(group_id, attendance['member_id'], attendance['name'])
         for date in attendance['dates']:
-            delete_vote(group_id, date['date_id'], attendance['member_id'])
-            add_vote(group_id, date['date_id'], attendance['member_id'], attendance['name'], date['result'])
+            if date['result'] != None:
+                delete_vote(group_id, date['date_id'], attendance['member_id'])
+                add_vote(group_id, date['date_id'], attendance['member_id'], attendance['name'], date['result'])
+                
         return attendance
 
 
